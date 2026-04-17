@@ -38,13 +38,18 @@ body{
 /* ───── SCREENS ───── */
 .screen{
   position:fixed;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
+  align-items:center;justify-content:flex-start;
   z-index:20;opacity:0;pointer-events:none;
   transition:opacity 0.9s cubic-bezier(.4,0,.2,1),transform 0.9s cubic-bezier(.4,0,.2,1);
-  transform:translateY(30px);padding:16px;overflow-y:auto;
+  transform:translateY(30px);
+  padding:16px 16px 32px;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 .screen.active{opacity:1;pointer-events:all;transform:translateY(0)}
 .screen.exit{opacity:0;transform:translateY(-40px)}
+/* push card down a bit so it breathes, but still scrollable */
+.screen .card{margin-top:auto;margin-bottom:auto}
 
 /* ───── CARDS ───── */
 .card{
@@ -52,7 +57,7 @@ body{
   backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
   border:1px solid rgba(255,255,255,0.12);
   border-radius:28px;
-  padding:36px 28px;
+  padding:32px 22px 36px;
   max-width:500px;width:100%;
   text-align:center;
   box-shadow:
@@ -60,8 +65,8 @@ body{
     0 8px 40px rgba(156,39,176,0.25),
     0 32px 80px rgba(8,0,15,0.6),
     inset 0 1px 0 rgba(255,255,255,0.1);
-  position:relative;overflow:hidden;
-  margin:auto;
+  position:relative;overflow:visible;
+  flex-shrink:0;
 }
 .card::after{
   content:'';position:absolute;inset:0;
@@ -263,16 +268,24 @@ body{
   background:linear-gradient(90deg,#ff4d7d,#9c27b0,#5c35ee,#e91e8c,#ffd700);
   background-size:200%;
   animation:ribbonMove 3s linear infinite;border-radius:28px 28px 0 0;
+  overflow:hidden;
 }
+/* clip ribbon corners without hiding card content */
+.card-inner-clip{border-radius:28px;overflow:hidden;position:absolute;inset:0;pointer-events:none}
 @keyframes ribbonMove{0%{background-position:0%}100%{background-position:200%}}
 
 /* ───── SHOOTING STARS ───── */
 .shoot{position:fixed;pointer-events:none;z-index:4;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff}
 
 @media(max-width:480px){
-  .card{padding:28px 18px;border-radius:22px}
+  .card{padding:24px 16px 30px;border-radius:22px}
   .cd-box{min-width:54px;padding:10px 12px}
   .cd-num{font-size:2rem}
+  .body{font-size:0.85rem;line-height:1.75;margin-bottom:14px}
+  .quote{font-size:0.9rem}
+  .script{font-size:clamp(2.2rem,8vw,3.4rem)}
+  .emoji-parade{font-size:1.5rem;gap:6px;margin:10px 0}
+  .icon{font-size:clamp(2rem,7vw,3rem);margin-bottom:6px}
 }
 </style>
 </head>
